@@ -4,7 +4,7 @@ lua54 'yes'
 
 client_script 'src/client/*.lua'
 server_scripts {
-    -- '@vrp/lib/utils.lua', -- comment or uncomment this if you are using/not using vrp
+    '@vrp/lib/utils.lua', -- comment or uncomment this if you are using/not using vrp
     'src/server/*.lua'
 }
 

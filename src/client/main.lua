@@ -2,14 +2,19 @@ lib.locale()
 
 isBlindfolded = false
 
-RegisterCommand('blindfold', function()
-    local closestPlayer, closestDistance = GetClosestPlayer()
+CreateThread(function()
+    exports.ox_target:addGlobalPlayer({
+        {
+            label = 'Toggle Blindfold',
+            icon = 'fa-solid fa-mask',
+            distance = 2,
+            onSelect = function(data)
+                local player = GetPlayerServerId(NetworkGetEntityOwner(data.entity))
 
-    if closestPlayer ~= -1 and closestDistance <= 3.0 then
-        lib.callback.await('enhanced-blindfold:blindFoldPlayer', false, GetPlayerServerId(closestPlayer))
-    else
-        Config.Notify('Blindfold', locale('no_players_nearby'), 'error')
-    end
+                lib.callback.await('enhanced-blindfold:blindFoldPlayer', false, player)
+            end
+        },
+    })
 end)
 
 RegisterNetEvent('enhanced-blindfold:toggleBlindfold', function(bool)
